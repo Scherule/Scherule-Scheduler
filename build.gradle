@@ -16,6 +16,7 @@ plugins {
 apply plugin: 'kotlin'
 
 repositories {
+    mavenLocal()
     jcenter()
 }
 
@@ -40,12 +41,14 @@ def watchForChange = 'src/**/*'
 def doOnChange = './gradlew classes'
 
 dependencies {
+    compile "com.scherule:Scherule-commons:$version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-reactive-streams:$vertxVersion"
     compile "io.vertx:vertx-service-discovery:$vertxVersion"
     compile "io.vertx:vertx-service-proxy:$vertxVersion"
-    compileOnly "io.vertx:vertx-codegen:$vertxVersion"
+    compile "io.vertx:vertx-codegen:$vertxVersion"
+    compile "io.vertx:vertx-rx-java:$vertxVersion"
     testCompile "junit:junit:4.12"
     testCompile "io.vertx:vertx-unit:$vertxVersion"
 }
