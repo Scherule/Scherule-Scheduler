@@ -1,11 +1,11 @@
 package com.scherule.scheduling;
 
-import io.vertx.core.AbstractVerticle
+import com.scherule.commons.MicroServiceVerticle
 import io.vertx.core.json.JsonObject
 import io.vertx.servicediscovery.ServiceDiscovery
 import io.vertx.servicediscovery.ServiceDiscoveryOptions
 
-class SchedulingVerticle : AbstractVerticle() {
+class SchedulingVerticle : MicroServiceVerticle() {
 
     override fun start() {
         val discovery = ServiceDiscovery.create(vertx,
@@ -26,7 +26,7 @@ class SchedulingVerticle : AbstractVerticle() {
                 .requestHandler({
                     it.response().end("Hello Vert.x!")
                 })
-        .listen(config().getInteger("http.port", 8082), {
+        .listen(config().getInteger("http.port"), {
             if (it.succeeded()) {
                 System.out.println("Server started");
             } else {
