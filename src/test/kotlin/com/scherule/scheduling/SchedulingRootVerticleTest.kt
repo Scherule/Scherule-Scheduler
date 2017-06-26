@@ -9,14 +9,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(VertxUnitRunner::class)
-class SchedulingVerticleTest {
+class SchedulingRootVerticleTest {
 
     private var vertx: Vertx? = null
 
     @Before
     fun setUp(tc: TestContext) {
         vertx = Vertx.vertx()
-        vertx!!.deployVerticle(SchedulingVerticle::class.java.name, tc.asyncAssertSuccess<String>())
+        vertx!!.deployVerticle(SchedulingRootVerticle::class.java.name, tc.asyncAssertSuccess<String>())
     }
 
     @After

@@ -5,7 +5,7 @@ import io.vertx.core.json.JsonObject
 import io.vertx.servicediscovery.ServiceDiscovery
 import io.vertx.servicediscovery.ServiceDiscoveryOptions
 
-class SchedulingVerticle : MicroServiceVerticle() {
+class SchedulingRootVerticle : MicroServiceVerticle() {
 
     override fun start() {
         val discovery = ServiceDiscovery.create(vertx,
