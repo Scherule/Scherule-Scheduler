@@ -23,7 +23,7 @@ apply plugin: 'application'
 
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
-mainClassName = 'com.scherule.calendaring.SchedulingApplication'
+mainClassName = 'com.scherule.scheduling.SchedulingApplication'
 
 compileKotlin {
     kotlinOptions {
@@ -43,9 +43,10 @@ def doOnChange = './gradlew classes'
 
 dependencies {
     compile "com.scherule:Scherule-commons:$version"
-    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.1'
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-codegen:$vertxVersion"
     compile "io.vertx:vertx-web:$vertxVersion"
@@ -84,7 +85,7 @@ sourceSets {
 }
 
 shadowJar {
-    archiveName = 'scherule-calendaring-fat.jar'
+    archiveName = 'scherule-scheduling-fat.jar'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest {
         attributes 'Main-Class': mainClassName
