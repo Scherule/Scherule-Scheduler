@@ -5,9 +5,11 @@ import com.rabbitmq.client.Channel
 import com.rabbitmq.client.DefaultConsumer
 import com.rabbitmq.client.Envelope
 import org.slf4j.LoggerFactory
+import java.nio.charset.Charset
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
+
 
 @Singleton
 class SchedulingJobConsumer
@@ -19,8 +21,14 @@ class SchedulingJobConsumer
         val log = LoggerFactory.getLogger(SchedulingRootVerticle::class.java)
     }
 
-    override fun handleDelivery(consumerTag: String?, envelope: Envelope?, properties: AMQP.BasicProperties?, body: ByteArray?) {
-        log.info("Received " + body.toString());
+    override fun handleDelivery(
+            consumerTag: String?,
+            envelope: Envelope?,
+            properties: AMQP.BasicProperties?,
+            body: ByteArray?
+    ) {
+        log.info("Processing message ${body.toString()}")
+        val job = SchedulingJob(body!!.toString(Charset.defaultCharset()))
     }
 
 }
