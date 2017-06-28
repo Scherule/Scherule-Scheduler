@@ -1,5 +1,6 @@
 package com.scherule.scheduling
 
+import org.joda.time.Duration
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 
@@ -12,6 +13,14 @@ internal class SchedulingJobTest {
         assertEquals(
                 3,
                 SchedulingJob(jobContent).getMinParticipants()
+        )
+    }
+
+    @Test
+    fun canReadMinDuration() {
+        assertEquals(
+                Duration.millis(18000000),
+                SchedulingJob(jobContent).getMinDuration()
         )
     }
 

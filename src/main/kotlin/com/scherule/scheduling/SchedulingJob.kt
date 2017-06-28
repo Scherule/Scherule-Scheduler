@@ -13,7 +13,7 @@ class SchedulingJob(jsonValue: String) {
     }
 
     fun getMinDuration() : Duration {
-        return Duration.standardDays(3)
+        return Duration.millis(context.read("$.parameters.minDuration"))
     }
 
 }
