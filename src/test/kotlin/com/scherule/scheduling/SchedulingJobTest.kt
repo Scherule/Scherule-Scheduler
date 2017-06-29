@@ -3,7 +3,7 @@ package com.scherule.scheduling
 import org.joda.time.Duration
 import org.joda.time.Interval
 import org.junit.jupiter.api.*
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.assertj.core.api.Assertions.*
 
 internal class SchedulingJobTest {
 
@@ -11,26 +11,22 @@ internal class SchedulingJobTest {
 
     @Test
     fun minParticipantsCanBeRead() {
-        assertEquals(
-                3,
-                SchedulingJob(jobContent).getMinParticipants()
-        )
+        assertThat(SchedulingJob(jobContent).getMinParticipants()).isEqualTo(3)
     }
 
     @Test
     fun minDurationCanBeRead() {
-        assertEquals(
-                Duration.millis(18000000),
-                SchedulingJob(jobContent).getMinDuration()
-        )
+        assertThat(SchedulingJob(jobContent).getMinDuration()).isEqualTo(Duration.millis(18000000))
     }
 
     @Test
     fun betweenCanBeRead() {
-        assertEquals(
-                Interval(1507040100000, 1507046400000),
-                SchedulingJob(jobContent).getBetween()
-        )
+        assertThat(SchedulingJob(jobContent).getBetween()).isEqualTo(Interval(1507040100000, 1507046400000))
+    }
+
+    @Test
+    fun participantsCanBeGet() {
+        assertThat(SchedulingJob(jobContent).getParticipants())
     }
 
 }

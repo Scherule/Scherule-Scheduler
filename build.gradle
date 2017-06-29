@@ -48,6 +48,7 @@ dependencies {
     compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
     compileOnly "io.vertx:vertx-codegen:$vertxVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:5.0.0-M4"
+    testCompile 'org.assertj:assertj-core:3.8.0'
     testCompile "io.vertx:vertx-unit:$vertxVersion"
 }
 
