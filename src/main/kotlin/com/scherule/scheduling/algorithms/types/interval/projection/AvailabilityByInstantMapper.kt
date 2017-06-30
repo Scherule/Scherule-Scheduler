@@ -6,7 +6,7 @@ import java.util.stream.Stream
 
 class AvailabilityByInstantMapper {
 
-    fun mapByInstants(availabilityStream: Stream<Availability>): LinkedHashMap<Instant, Availability> {
+    fun mapByInstants(availabilityStream: Stream<Availability>): LinkedHashMap<Instant, Set<Availability>> {
         return availabilityStream
                 .flatMap {
                     val availability = it
@@ -15,7 +15,7 @@ class AvailabilityByInstantMapper {
                     }
                 }.sorted { a, b -> a.first.compareTo(b.first) }
                 .collect({ LinkedHashMap() },
-                        { map, (first, second) -> map.put(first, second) },
+                        { map, (first, second) -> map.put(first, map.getOrDefault(first, HashSet()).plus(second)) },
                         { map, carryMap -> map.putAll(carryMap) })
     }
 

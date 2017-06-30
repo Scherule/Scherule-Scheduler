@@ -21,7 +21,7 @@ internal class IntervalProjectionAlgorithmTest {
                 between = Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
         ))
 
-        assertThat(schedulingSolution).isEqualToComparingFieldByField(SchedulingSolution())
+        assertThat(schedulingSolution).isEqualToComparingFieldByField(SchedulingSolution(Interval(1)))
     }
 
     @Test
@@ -32,7 +32,7 @@ internal class IntervalProjectionAlgorithmTest {
                 between = Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
         ))
 
-        assertThat(schedulingSolution).isEqualToComparingFieldByField(SchedulingSolution())
+        assertThat(schedulingSolution).isEqualToComparingFieldByField(SchedulingSolution(Interval(2)))
     }
 
 }

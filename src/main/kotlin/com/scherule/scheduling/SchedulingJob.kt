@@ -2,11 +2,15 @@ package com.scherule.scheduling
 
 import com.jayway.jsonpath.DocumentContext
 import com.jayway.jsonpath.JsonPath
+import com.scherule.scheduling.algorithms.Availability
 import com.scherule.scheduling.algorithms.SchedulingProblem
 import org.joda.time.Duration
 import org.joda.time.Interval
 
 class SchedulingJob(jsonValue: String) : SchedulingProblem {
+    override fun getAvailabilityByParticipants(): Set<Availability> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     val context: DocumentContext = JsonPath.parse(jsonValue);
 

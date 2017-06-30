@@ -5,7 +5,7 @@ import org.joda.time.Instant
 
 class InstantFitnessEvaluator {
 
-    fun evaluate(orderedInstants: LinkedHashMap<Instant, Availability>): LinkedHashMap<Instant, Fitness> {
+    fun evaluate(orderedInstants: LinkedHashMap<Instant, Set<Availability>>): LinkedHashMap<Instant, Fitness> {
         return LinkedHashMap<Instant, Fitness>()
     }
 
