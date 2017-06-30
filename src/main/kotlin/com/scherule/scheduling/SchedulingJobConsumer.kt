@@ -27,8 +27,8 @@ class SchedulingJobConsumer
             properties: AMQP.BasicProperties?,
             body: ByteArray?
     ) {
-        log.info("Processing message ${body.toString()}")
         val job = SchedulingJob(body!!.toString(Charset.defaultCharset()))
+
     }
 
 }
