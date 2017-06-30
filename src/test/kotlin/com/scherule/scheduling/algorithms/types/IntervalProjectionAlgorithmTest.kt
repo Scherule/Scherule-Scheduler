@@ -1,6 +1,7 @@
 package com.scherule.scheduling.algorithms.types
 
 import com.scherule.scheduling.algorithms.SchedulingSolution
+import com.scherule.scheduling.algorithms.types.interval.projection.IntervalProjectionAlgorithm
 import com.scherule.scheduling.helpers.SchedulingProblemPojo
 import org.joda.time.Duration
 import org.joda.time.Interval
