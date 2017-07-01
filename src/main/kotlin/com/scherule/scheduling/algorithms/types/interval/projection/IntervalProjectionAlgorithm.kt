@@ -15,7 +15,7 @@ class IntervalProjectionAlgorithm : SchedulingAlgorithm {
 
     override fun schedule(problem: SchedulingProblem): SchedulingSolution {
         val orderedInstants = availabilityByInstantMapper.mapByInstants(getAvailabilityStream(problem))
-        val fitnessByInstant = intervalFitnessEvaluator.evaluate(orderedInstants)
+        val fitnessByInstant = orderedInstants.map { it.evaluateBy(intervalFitnessEvaluator) }
         val fitnessByInterval = fitIntervalJoiner.mapToFitIntervals(fitnessByInstant)
         return pickBestFrom(fitnessByInterval)
     }

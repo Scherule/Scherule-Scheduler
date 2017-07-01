@@ -6,15 +6,14 @@ import org.joda.time.Instant
 
 class InstantFitnessEvaluator {
 
-    fun evaluate(orderedInstants: List<AvailabilitiesInInstant>): List<InstantFitness> {
-        return orderedInstants.map {
-            val instant = it.instant
-            val joinedFitness = it.availabilities.map { score(instant, it) }.reduce {
-                first, second ->
-                first.combineWith(second)
-            }
-            InstantFitness(instant, joinedFitness)
+    fun evaluate(availabilitiesInInstant: AvailabilitiesInInstant): InstantFitness {
+        val instant = availabilitiesInInstant.instant
+        val availabilities = availabilitiesInInstant.availabilities
+        val joinedFitness = availabilities.map { score(instant, it) }.reduce {
+            first, second ->
+            first.combineWith(second)
         }
+        return InstantFitness(instant, joinedFitness)
     }
 
     private fun score(instant: Instant, availability: Availability) : Fitness {

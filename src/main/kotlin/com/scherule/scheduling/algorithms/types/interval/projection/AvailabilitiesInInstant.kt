@@ -3,9 +3,6 @@ package com.scherule.scheduling.algorithms.types.interval.projection
 import com.scherule.scheduling.algorithms.Availability
 import org.joda.time.Instant
 
-/**
- * Created by kbhit on 01.07.2017.
- */
 class AvailabilitiesInInstant(
         val instant: Instant,
         val availabilities: Set<Availability>
@@ -21,6 +18,10 @@ class AvailabilitiesInInstant(
         } else {
             return 0
         }
+    }
+
+    fun evaluateBy(intervalFitnessEvaluator: InstantFitnessEvaluator): InstantFitness {
+        return intervalFitnessEvaluator.evaluate(this)
     }
 
 }
