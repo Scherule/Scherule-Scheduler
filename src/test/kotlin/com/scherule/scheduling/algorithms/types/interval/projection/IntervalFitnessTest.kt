@@ -14,21 +14,21 @@ internal class IntervalFitnessTest {
     @Test
     fun extendingFitIntervalWithInstantBeforeIntervalExpandsFitIntervalStartToContainIt() {
         val currentFitInterval = IntervalFitness(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"), ANY_FITNESS)
-        assertThat(currentFitInterval.expandTo(Instant("2017-10-03T19:00Z"), ANY_FITNESS))
+        assertThat(currentFitInterval.expandTo(InstantFitness(Instant("2017-10-03T19:00Z"), ANY_FITNESS)))
                 .isEqualTo(IntervalFitness(Interval.parse("2017-10-03T14:15Z/2017-10-03T19:00Z"), ANY_FITNESS))
     }
 
     @Test
     fun extendingFitIntervalWithInstantAfterIntervalExpandsFitIntervalEndToContainIt() {
         val currentFitInterval = IntervalFitness(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"), ANY_FITNESS)
-        assertThat(currentFitInterval.expandTo(Instant("2017-10-03T11:00Z"), ANY_FITNESS))
+        assertThat(currentFitInterval.expandTo(InstantFitness(Instant("2017-10-03T11:00Z"), ANY_FITNESS)))
                 .isEqualTo(IntervalFitness(Interval.parse("2017-10-03T11:00Z/2017-10-03T16:00Z"), ANY_FITNESS))
     }
 
     @Test
     fun extendingFitIntervalWithSmallerFitnessLowersFitnessToMatchIt() {
         val currentFitInterval = IntervalFitness(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"), Fitness(100))
-        assertThat(currentFitInterval.expandTo(Instant("2017-10-03T15:00Z"), Fitness(50)))
+        assertThat(currentFitInterval.expandTo(InstantFitness(Instant("2017-10-03T15:00Z"), Fitness(50))))
                 .isEqualTo(IntervalFitness(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"), Fitness(50)))
     }
 
