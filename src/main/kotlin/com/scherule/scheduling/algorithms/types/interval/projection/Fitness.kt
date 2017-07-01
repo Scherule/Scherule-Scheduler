@@ -2,6 +2,10 @@ package com.scherule.scheduling.algorithms.types.interval.projection
 
 class Fitness(val value: Int) {
 
+    companion object {
+        val ZERO_FITNESS = Fitness(0)
+    }
+
     fun isZero(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -25,6 +29,10 @@ class Fitness(val value: Int) {
 
     override fun toString(): String {
         return "Fitness(value=$value)"
+    }
+
+    fun combineWith(second: Fitness): Fitness {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

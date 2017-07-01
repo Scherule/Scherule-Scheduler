@@ -1,6 +1,8 @@
 package com.scherule.scheduling.algorithms
 
+import org.joda.time.Instant
 import org.joda.time.Interval
+import java.util.*
 import java.util.stream.Collectors
 
 class Availability(val intervals: Set<Interval>) {
@@ -30,5 +32,10 @@ class Availability(val intervals: Set<Interval>) {
     override fun toString(): String {
         return "Availability(intervals=$intervals)"
     }
+
+    fun getIntervalDuring(instant: Instant): Optional<Interval>
+            = Optional.ofNullable(intervals.find {
+        it.contains(instant)
+    })
 
 }

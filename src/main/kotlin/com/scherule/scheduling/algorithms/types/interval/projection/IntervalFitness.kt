@@ -1,20 +1,22 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import org.joda.time.Instant
 import org.joda.time.Interval
 
-class FitInterval(val interval: Interval, val fitness: Fitness) {
+class IntervalFitness(val interval: Interval, val fitness: Fitness) {
 
-    constructor(instant: Instant, fitness: Fitness) : this(Interval(instant), fitness)
+    constructor(instantFitness: InstantFitness) : this(Interval(instantFitness.instant), instantFitness.fitness)
 
-    fun expandTo(instant: Instant, fitness: Fitness): FitInterval {
+    fun expandTo(instantFitness: InstantFitness): IntervalFitness {
+        val instant = instantFitness.instant
+        val fitness = instantFitness.fitness
+
         val lowerFitness = fitness.thisOrIfLower(this.fitness)
         if (interval.isBefore(instant)) {
-            return FitInterval(interval.withEnd(instant), lowerFitness)
+            return IntervalFitness(interval.withEnd(instant), lowerFitness)
         } else if (interval.isAfter(instant)) {
-            return FitInterval(interval.withStart(instant), lowerFitness)
+            return IntervalFitness(interval.withStart(instant), lowerFitness)
         } else {
-            return FitInterval(interval, lowerFitness)
+            return IntervalFitness(interval, lowerFitness)
         }
     }
 
@@ -22,7 +24,7 @@ class FitInterval(val interval: Interval, val fitness: Fitness) {
         if (this === other) return true
         if (other?.javaClass != javaClass) return false
 
-        other as FitInterval
+        other as IntervalFitness
 
         if (interval != other.interval) return false
         if (fitness != other.fitness) return false
@@ -37,7 +39,7 @@ class FitInterval(val interval: Interval, val fitness: Fitness) {
     }
 
     override fun toString(): String {
-        return "FitInterval(interval=$interval, fitness=$fitness)"
+        return "IntervalFitness(interval=$interval, fitness=$fitness)"
     }
 
 }

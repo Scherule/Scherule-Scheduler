@@ -1,10 +1,10 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
 import com.scherule.scheduling.algorithms.Availability
-import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.Instant
 import org.joda.time.Interval
+import org.junit.jupiter.api.Test
 import java.util.stream.Stream
 
 internal class AvailabilityByInstantMapperTest {
@@ -17,8 +17,8 @@ internal class AvailabilityByInstantMapperTest {
         assertThat(mapper.mapByInstants(Stream.of(
                 availability)
         )).containsExactly(
-                entry(Instant.parse("2017-10-03T14:15Z"), setOf(availability)),
-                entry(Instant.parse("2017-10-03T16:00Z"), setOf(availability))
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T14:15Z"), setOf(availability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T16:00Z"), setOf(availability))
         )
     }
 
@@ -33,10 +33,10 @@ internal class AvailabilityByInstantMapperTest {
         assertThat(mapper.mapByInstants(Stream.of(
                 availability)
         )).containsExactly(
-                entry(Instant.parse("2017-10-03T14:15Z"), setOf(availability)),
-                entry(Instant.parse("2017-10-03T16:00Z"), setOf(availability)),
-                entry(Instant.parse("2017-10-04T15:45Z"), setOf(availability)),
-                entry(Instant.parse("2017-10-04T17:35Z"), setOf(availability))
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T14:15Z"), setOf(availability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T16:00Z"), setOf(availability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-04T15:45Z"), setOf(availability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-04T17:35Z"), setOf(availability))
         )
     }
 
@@ -58,9 +58,9 @@ internal class AvailabilityByInstantMapperTest {
                         secondAvailability
                 )
         )).containsExactly(
-                entry(Instant.parse("2017-10-03T14:15Z"), setOf(firstAvailability, secondAvailability)),
-                entry(Instant.parse("2017-10-03T16:00Z"), setOf(firstAvailability)),
-                entry(Instant.parse("2017-10-03T18:00Z"), setOf(secondAvailability))
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T14:15Z"), setOf(firstAvailability, secondAvailability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T16:00Z"), setOf(firstAvailability)),
+                AvailabilitiesInInstant(Instant.parse("2017-10-03T18:00Z"), setOf(secondAvailability))
         )
     }
 

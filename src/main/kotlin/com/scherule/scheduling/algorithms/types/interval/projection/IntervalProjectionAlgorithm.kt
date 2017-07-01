@@ -20,8 +20,8 @@ class IntervalProjectionAlgorithm : SchedulingAlgorithm {
         return pickBestFrom(fitnessByInterval)
     }
 
-    private fun pickBestFrom(intervals: HashSet<FitInterval>): SchedulingSolution {
-        val bestInterval = intervals.maxBy { it.fitness.value }!!
+    private fun pickBestFrom(intervalFitnesses: HashSet<IntervalFitness>): SchedulingSolution {
+        val bestInterval = intervalFitnesses.maxBy { it.fitness.value }!!
         return SchedulingSolution(bestInterval.interval)
     }
 
