@@ -8,10 +8,12 @@ import org.joda.time.Interval
 internal class SchedulingProblemPojo(
         private val minParticipants: Int,
         private val minDuration: Duration,
-        private val between: Interval
+        private val between: Interval,
+        private val availability: Set<Availability>
 ) : SchedulingProblem {
+
     override fun getAvailabilityByParticipants(): Set<Availability> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return availability
     }
 
     override fun getMinParticipants(): Int {
@@ -25,6 +27,5 @@ internal class SchedulingProblemPojo(
     override fun getBetween(): Interval {
         return between
     }
-
 
 }
