@@ -4,7 +4,8 @@ import org.joda.time.Interval
 
 class IntervalFitness(val interval: Interval, val fitness: Fitness) {
 
-    constructor(instantFitness: InstantFitness) : this(Interval(instantFitness.instant), instantFitness.fitness)
+    constructor(instantFitness: InstantFitness)
+            : this(Interval(instantFitness.instant, instantFitness.instant), instantFitness.fitness)
 
     fun expandTo(instantFitness: InstantFitness): IntervalFitness {
         val instant = instantFitness.instant

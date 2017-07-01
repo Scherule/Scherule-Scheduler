@@ -7,10 +7,10 @@ class Fitness(val value: Int) {
     }
 
     fun isZero(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ZERO_FITNESS == this
     }
 
-    fun thisOrIfLower(fitness: Fitness): Fitness = if(fitness.value < this.value) fitness else this
+    fun thisOrIfLower(fitness: Fitness): Fitness = if (fitness.value < this.value) fitness else this
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -31,8 +31,6 @@ class Fitness(val value: Int) {
         return "Fitness(value=$value)"
     }
 
-    fun combineWith(second: Fitness): Fitness {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun combineWith(second: Fitness): Fitness = Fitness(minOf(value, second.value))
 
 }
