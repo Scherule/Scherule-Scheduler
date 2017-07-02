@@ -44,7 +44,7 @@ class IntervalFitness(val interval: Interval, val fitness: Fitness) {
     }
 
     fun hasGreaterFitnessThan(fitness: Fitness): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return this.fitness.isMoreThan(fitness)
     }
 
 }

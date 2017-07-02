@@ -31,7 +31,6 @@ class Fitness(val value: Int) {
         return "Fitness(value=$value)"
     }
 
-    fun combineWith(second: Fitness): Fitness = Fitness(minOf(value, second.value))
-    fun  isMoreThan(secondFitness: Fitness): Boolean {}
+    fun  isMoreThan(secondFitness: Fitness): Boolean = this.value > secondFitness.value
 
 }

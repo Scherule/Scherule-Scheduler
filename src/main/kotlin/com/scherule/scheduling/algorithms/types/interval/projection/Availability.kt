@@ -5,9 +5,7 @@ import org.joda.time.Interval
 
 class Availability(val weight: Int, val interval: Interval) {
 
-    fun trimmedTo(between: Interval): Availability {
-
-    }
+    fun trimmedTo(between: Interval): Availability = Availability(weight, interval.overlap(between))
 
     fun getDuration(): Duration = interval.toDuration()
 
