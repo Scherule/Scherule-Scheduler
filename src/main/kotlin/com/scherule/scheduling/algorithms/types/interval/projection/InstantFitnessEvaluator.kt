@@ -1,29 +1,14 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.Availability
-import com.scherule.scheduling.algorithms.types.interval.projection.Fitness.Companion.ZERO_FITNESS
+import com.scherule.scheduling.algorithms.SchedulingProblem
 import org.joda.time.Instant
 
-class InstantFitnessEvaluator {
+class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
 
-    fun evaluate(availabilitiesInInstant: AvailabilitiesInInstant): InstantFitness {
-        val instant = availabilitiesInInstant.instant
-        val availabilities = availabilitiesInInstant.availabilities
-        val joinedFitness = availabilities.map { score(instant, it) }.reduce {
-            first, second ->
-            first.combineWith(second)
-        }
-        return InstantFitness(instant, joinedFitness)
-    }
-
-    private fun score(instant: Instant, availability: Availability) : Fitness {
-        val optionalIntervalDuring = availability.getIntervalDuring(instant)
-        if (optionalIntervalDuring.isPresent) {
-            val interval = optionalIntervalDuring.get()
-            return Fitness(interval.toDuration().standardMinutes.toInt())
-        } else {
-            return ZERO_FITNESS
-        }
+    fun evaluate(instant: Instant): InstantFitness {
+        val instant = instantAvailability.instant
+        val availability = instantAvailability.availability
+        return InstantFitness(instant, Fitness(availability.getDuration().standardMinutes.toInt()))
     }
 
 }

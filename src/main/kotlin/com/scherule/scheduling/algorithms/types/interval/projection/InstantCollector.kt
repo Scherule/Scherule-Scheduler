@@ -1,22 +1,30 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.Availability
+import com.scherule.scheduling.algorithms.Participation
+import com.scherule.scheduling.algorithms.SchedulingProblem
 import org.joda.time.Instant
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
-class AvailabilityByInstantMapper {
+class InstantCollector(private val problem: SchedulingProblem) {
 
-    fun mapByInstants(availabilityStream: Stream<Availability>): List<AvailabilitiesInInstant> {
-        val availabilitiesByInstant = groupAvailabilitiesByInstant(availabilityStream)
+    fun collectIntervalInstantsFrom(participation: Iterable<Participation>): List<Instant> {
+
+
+
+
+
+
+
+        val availabilitiesByInstant = groupAvailabilitiesByInstant(participationStream)
         return availabilitiesByInstant.entries.stream()
-                .map { (key, value) -> AvailabilitiesInInstant(key, value) }
+                .map { (key, value) -> InstantAvailability(key, value) }
                 .sorted()
                 .collect(Collectors.toList())
     }
 
-    private fun groupAvailabilitiesByInstant(availabilityStream: Stream<Availability>): Map<Instant, Set<Availability>> {
-        return availabilityStream
+    private fun groupAvailabilitiesByInstant(participationStream: Stream<Participation>): Map<Instant, Set<Participation>> {
+        return participationStream
                 .flatMap {
                     val availability = it
                     it.intervals.stream().flatMap {
@@ -26,6 +34,10 @@ class AvailabilityByInstantMapper {
                         )
                     }
                 }.collect(Collectors.groupingBy({ it.first }, Collectors.mapping({ it.second }, Collectors.toSet())))
+    }
+
+    fun getInstants(): List<Instant> {
+
     }
 
 }

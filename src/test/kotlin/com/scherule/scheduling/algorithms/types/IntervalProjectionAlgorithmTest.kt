@@ -1,6 +1,6 @@
 package com.scherule.scheduling.algorithms.types
 
-import com.scherule.scheduling.algorithms.Availability
+import com.scherule.scheduling.algorithms.Participation
 import com.scherule.scheduling.algorithms.SchedulingSolution
 import com.scherule.scheduling.algorithms.types.interval.projection.IntervalProjectionAlgorithm
 import com.scherule.scheduling.helpers.SchedulingProblemPojo
@@ -20,8 +20,8 @@ internal class IntervalProjectionAlgorithmTest {
                 minParticipants = 1,
                 minDuration = Duration.standardHours(1),
                 between = Interval.parse("2017-10-02T14:15Z/2017-10-05T16:00Z"),
-                availability = setOf(
-                        Availability(setOf(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
+                participation = setOf(
+                        Participation(setOf(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
                 )
         ))).isEqualToComparingFieldByField(SchedulingSolution(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
     }
@@ -32,8 +32,8 @@ internal class IntervalProjectionAlgorithmTest {
                 minParticipants = 2,
                 minDuration = Duration.standardHours(1),
                 between = Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"),
-                availability = setOf(
-                        Availability(setOf(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
+                participation = setOf(
+                        Participation(setOf(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
                 )
         ))).isEqualToComparingFieldByField(SchedulingSolution(Interval(2)))
     }

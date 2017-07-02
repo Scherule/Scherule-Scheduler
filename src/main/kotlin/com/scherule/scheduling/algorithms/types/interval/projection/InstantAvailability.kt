@@ -1,14 +1,15 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.Availability
+import com.scherule.scheduling.algorithms.Participation
 import org.joda.time.Instant
 
-class AvailabilitiesInInstant(
+class InstantAvailability(
         val instant: Instant,
-        val availabilities: Set<Availability>
-) : Comparable<AvailabilitiesInInstant> {
+        val availability: Availability,
+        val participation: Participation
+) : Comparable<InstantAvailability> {
 
-    override fun compareTo(other: AvailabilitiesInInstant): Int {
+    override fun compareTo(other: InstantAvailability): Int {
         val thisInstant = instant
         val otherInstant = other.instant
         if (thisInstant.isAfter(otherInstant)) {

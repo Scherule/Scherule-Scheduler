@@ -43,4 +43,8 @@ class IntervalFitness(val interval: Interval, val fitness: Fitness) {
         return "IntervalFitness(interval=$interval, fitness=$fitness)"
     }
 
+    fun hasGreaterFitnessThan(fitness: Fitness): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

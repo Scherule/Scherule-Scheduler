@@ -3,31 +3,37 @@ package com.scherule.scheduling.algorithms.types.interval.projection
 import com.scherule.scheduling.algorithms.SchedulingAlgorithm
 import com.scherule.scheduling.algorithms.SchedulingProblem
 import com.scherule.scheduling.algorithms.SchedulingSolution
+import java.util.Comparator
 
-/**
- * A simple algorithm that creates a series of time intervals out of the longer intervals.
- */
 class IntervalProjectionAlgorithm : SchedulingAlgorithm {
 
-    val availabilityByInstantMapper = AvailabilityByInstantMapper()
-    val intervalFitnessEvaluator = InstantFitnessEvaluator()
-    val fitIntervalJoiner = FitIntervalJoiner()
-
     override fun schedule(problem: SchedulingProblem): SchedulingSolution {
-        val orderedInstants = availabilityByInstantMapper.mapByInstants(getAvailabilityStream(problem))
-        val fitnessByInstant = orderedInstants.map { it.evaluateBy(intervalFitnessEvaluator) }
-        val fitnessByInterval = fitIntervalJoiner.mapToFitIntervals(fitnessByInstant)
-        return pickBestFrom(fitnessByInterval)
+        val instantCollector = InstantCollector(problem)
+        val instantEvaluator = InstantFitnessEvaluator(problem)
+
+        val intervalWithHighestFitness = instantCollector.getInstants().stream().sorted()
+                .map { instantEvaluator.evaluate(it) }
+                .collect(IntervalFitnessCollector())
+                .stream()
+                .max(intervalComparator).get()
+
+        return SchedulingSolution(intervalWithHighestFitness.interval)
     }
 
-    private fun pickBestFrom(intervalFitnesses: HashSet<IntervalFitness>): SchedulingSolution {
-        val bestInterval = intervalFitnesses.maxBy { it.fitness.value }!!
-        return SchedulingSolution(bestInterval.interval)
-    }
+}
 
-    private fun getAvailabilityStream(problem: SchedulingProblem) =
-            problem.getAvailabilityByParticipants().stream().map {
-                it.onlyWithin(problem.getBetween())
-            }
+object intervalComparator : Comparator<IntervalFitness> {
+
+    override fun compare(firstInterval: IntervalFitness, secondInterval: IntervalFitness): Int {
+        val firstFitness = firstInterval.fitness
+        val secondFitness = secondInterval.fitness
+        if (firstFitness.isMoreThan(secondFitness)) {
+            return 1
+        } else if(secondFitness.isMoreThan(firstFitness)) {
+            return -1
+        } else {
+            return 0
+        }
+    }
 
 }

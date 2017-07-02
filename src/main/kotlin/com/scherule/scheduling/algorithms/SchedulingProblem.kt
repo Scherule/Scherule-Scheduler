@@ -9,6 +9,6 @@ interface SchedulingProblem {
     fun getMinParticipants() : Int
     fun getMinDuration() : Duration
     fun getBetween(): Interval
-    fun getAvailabilityByParticipants() : Set<Availability>
+    fun getParticipations() : Set<Participation>
 
 }
