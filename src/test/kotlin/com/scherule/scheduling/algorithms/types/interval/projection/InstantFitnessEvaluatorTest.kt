@@ -21,4 +21,40 @@ internal class InstantFitnessEvaluatorTest {
                 .isEqualTo(InstantFitness(instant, Fitness(1)))
     }
 
+    @Test
+    fun instantMatchingEndOfIntervalScores() {
+        val instantFitnessEvaluator = InstantFitnessEvaluator(problemWithParticipations(setOf(
+                ProblemUtils.participationWithIntervals(
+                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
+                )
+        )))
+        val instant = Instant.parse("2017-10-03T16:00Z")
+        assertThat(instantFitnessEvaluator.evaluate(instant))
+                .isEqualTo(InstantFitness(instant, Fitness(1)))
+    }
+
+    @Test
+    fun instantEarlierThanStartOfIntervalScoresZero() {
+        val instantFitnessEvaluator = InstantFitnessEvaluator(problemWithParticipations(setOf(
+                ProblemUtils.participationWithIntervals(
+                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
+                )
+        )))
+        val instant = Instant.parse("2017-10-03T14:14Z")
+        assertThat(instantFitnessEvaluator.evaluate(instant))
+                .isEqualTo(InstantFitness(instant, Fitness.ZERO_FITNESS))
+    }
+
+    @Test
+    fun instantLaterThanEndOfIntervalScoresZero() {
+        val instantFitnessEvaluator = InstantFitnessEvaluator(problemWithParticipations(setOf(
+                ProblemUtils.participationWithIntervals(
+                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
+                )
+        )))
+        val instant = Instant.parse("2017-10-03T16:01Z")
+        assertThat(instantFitnessEvaluator.evaluate(instant))
+                .isEqualTo(InstantFitness(instant, Fitness.ZERO_FITNESS))
+    }
+
 }

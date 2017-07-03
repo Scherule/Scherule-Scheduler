@@ -17,7 +17,9 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
     }
 
     private fun evaluateForParticipant(participation: Participation, instant: Instant): Fitness {
-        val matchingIntervalOptional = participation.availabilities.stream().filter { it.interval.contains(instant) }.findFirst()
+        val matchingIntervalOptional = participation.availabilities.stream().filter {
+            it.interval.end.isEqual(instant) || it.interval.contains(instant)
+        }.findFirst()
         if(matchingIntervalOptional.isPresent) {
             val matchingInterval = matchingIntervalOptional.get()
             val validDuration = matchingInterval.trimmedTo(problem.getBetween()).getDuration()
