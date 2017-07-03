@@ -22,15 +22,48 @@ internal class IntervalProjectionAlgorithmTest {
                 minDuration = Duration.standardHours(1),
                 between = Interval.parse("2017-10-02T14:15Z/2017-10-05T16:00Z"),
                 participation = setOf(
-                        Participation(
-                                participationId = "1",
-                                importance = 1,
-                                availabilities = setOf(
-                                        Availability(1, Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"))
-                                )
-                        )
+                        participationWithAvailabilities("1", Availability(1, Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
+    }
+
+    @Test
+    fun picksUniqueCommonInterval() {
+        assertThat(algorithm.schedule(SchedulingProblemPojo(
+                minParticipants = 3,
+                minDuration = Duration.standardHours(1),
+                between = Interval.parse("2017-10-02T14:00Z/2017-10-06T16:00Z"),
+                participation = setOf(
+                        participationWithAvailabilities("1", Availability(1, Interval.parse("2017-10-02T14:00Z/2017-10-03T18:00Z"))),
+                        participationWithAvailabilities("2", Availability(1, Interval.parse("2017-10-03T15:00Z/2017-10-03T19:00Z"))),
+                        participationWithAvailabilities("3", Availability(1, Interval.parse("2017-10-03T14:15Z/2017-10-03T17:30Z")))
+                )
+        ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-03T15:00Z/2017-10-03T17:30Z")))
+    }
+
+    @Test
+    fun picksLongerIntervalFromTwoPossible() {
+        assertThat(algorithm.schedule(SchedulingProblemPojo(
+                minParticipants = 3,
+                minDuration = Duration.standardHours(1),
+                between = Interval.parse("2017-10-02T14:00Z/2017-10-06T16:00Z"),
+                participation = setOf(
+                        participationWithAvailabilities(
+                                "1",
+                                Availability(1, Interval.parse("2017-10-02T19:00Z/2017-10-02T23:00Z")),
+                                Availability(1, Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z"))
+                        ),
+                        participationWithAvailabilities("2", Availability(1, Interval.parse("2017-10-01T15:00Z/2017-10-30T19:00Z")))
+                )
+        ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z")))
+    }
+
+    private fun participationWithAvailabilities(id: String, vararg availability: Availability): Participation {
+        return Participation(
+                participationId = "1",
+                importance = 1,
+                availabilities = availability.toSet()
+        )
     }
 
 }
