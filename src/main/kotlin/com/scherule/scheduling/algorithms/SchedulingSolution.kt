@@ -11,7 +11,7 @@ class SchedulingSolution(val interval: Interval) {
 
         other as SchedulingSolution
 
-        if (interval != other.interval) return false
+        if (!interval.isEqual(other.interval)) return false
 
         return true
     }
