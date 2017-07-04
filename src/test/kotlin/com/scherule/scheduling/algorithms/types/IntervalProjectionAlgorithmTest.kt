@@ -58,10 +58,29 @@ internal class IntervalProjectionAlgorithmTest {
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z")))
     }
 
-    private fun participationWithAvailabilities(id: String, vararg availability: Availability): Participation {
+    @Test
+    fun pickIntervalWithAllRequiredParticipantsEvenAtTheExpenseOfOthers() {
+        assertThat(algorithm.schedule(SchedulingProblemPojo(
+                minParticipants = 1,
+                minDuration = Duration.standardHours(1),
+                between = Interval.parse("2017-09-30T14:00Z/2017-10-06T16:00Z"),
+                participation = setOf(
+                        participationWithAvailabilities(
+                                "1",
+                                Availability(1, Interval.parse("2017-10-01T14:00Z/2017-10-01T23:00Z"))
+                        ),
+                        participationWithAvailabilities(
+                                id = "2", importance = Int.MAX_VALUE,
+                                availability = Availability(1, Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z"))
+                        )
+                )
+        ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z")))
+    }
+
+    private fun participationWithAvailabilities(id: String, vararg availability: Availability, importance: Int = 1): Participation {
         return Participation(
                 participationId = "1",
-                importance = 1,
+                importance = importance,
                 availabilities = availability.toSet()
         )
     }

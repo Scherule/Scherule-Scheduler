@@ -51,6 +51,9 @@ dependencies {
     testCompile 'org.assertj:assertj-core:3.8.0'
     testCompile 'org.assertj:assertj-joda-time:2.0.0'
     testCompile "io.vertx:vertx-unit:$vertxVersion"
+    testCompile 'info.cukes:cucumber-guice:1.2.5'
+    testCompile 'info.cukes:cucumber-java:1.2.5'
+    testCompile 'info.cukes:cucumber-junit:1.2.5'
 }
 
 task annotationProcessing(type: JavaCompile, group: 'build') {

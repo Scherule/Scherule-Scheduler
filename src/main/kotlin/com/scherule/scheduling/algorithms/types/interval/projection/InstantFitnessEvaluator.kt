@@ -22,11 +22,12 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
         }.findFirst()
         if(matchingIntervalOptional.isPresent) {
             val matchingInterval = matchingIntervalOptional.get()
-            val validDuration = matchingInterval.trimmedTo(problem.getBetween()).getDuration()
-            return Fitness(matchingInterval.weight * validDuration.standardHours.toInt())
-        } else {
-            return Fitness.ZERO_FITNESS
+            if(matchingInterval.interval.overlaps(problem.getBetween())) {
+                val validDuration = matchingInterval.trimmedTo(problem.getBetween()).getDuration()
+                return Fitness(matchingInterval.weight * validDuration.standardHours.toInt())
+            }
         }
+        return Fitness.ZERO_FITNESS
     }
 
 }
