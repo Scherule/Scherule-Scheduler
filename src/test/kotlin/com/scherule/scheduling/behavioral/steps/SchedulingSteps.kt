@@ -1,5 +1,6 @@
 package com.scherule.scheduling.behavioral.steps
 
+import com.scherule.scheduling.algorithms.SchedulingSolution
 import com.scherule.scheduling.algorithms.types.interval.projection.Availability
 import com.scherule.scheduling.algorithms.types.interval.projection.IntervalProjectionAlgorithm
 import com.scherule.scheduling.builders.ParticipationBuilder
@@ -16,6 +17,7 @@ import org.joda.time.Duration
 import org.joda.time.Interval
 import java.util.*
 import javax.inject.Inject
+import org.assertj.core.api.Assertions.*
 
 @ScenarioScoped
 internal class SchedulingSteps @Inject constructor(
@@ -24,6 +26,8 @@ internal class SchedulingSteps @Inject constructor(
 
     var problemBuilder: SchedulingProblemPojo.Builder = aSchedulingProblem()
     var participationBuilderStack: Stack<ParticipationBuilder> = Stack()
+
+    var scheduledMeeting: SchedulingSolution? = null
 
     @Given("there is a meeting scheduling problem")
     fun givenThereIsMeetingSchedulingProblem() {
@@ -58,15 +62,19 @@ internal class SchedulingSteps @Inject constructor(
 
 
     @When("the meeting was scheduled")
-    fun whenTheMeetingWasScheduled() = meetingScheduler.schedule(problemBuilder
-            .withParticipation(*participationBuilderStack.map { it.build() }.toTypedArray())
-            .build()
-    )
-
+    fun whenTheMeetingWasScheduled() {
+        scheduledMeeting = meetingScheduler.schedule(
+                problemBuilder
+                        .withParticipation(*participationBuilderStack.map { it.build() }.toTypedArray())
+                        .build()
+        )
+    }
 
     @When("the meeting scheduled is in period '(.*)'")
-    fun thenTheMeetingScheduledIsInPeriod() {
-        System.out.println("x")
+    fun thenTheMeetingScheduledIsInPeriod(
+            @Transform(IntervalConverter::class) interval: Interval
+    ) {
+        assertThat(interval).isEqualTo(scheduledMeeting!!.interval)
     }
 
 }

@@ -6,18 +6,22 @@ import com.scherule.scheduling.algorithms.types.interval.projection.Availability
 
 internal class ParticipationBuilder {
 
+    var importance: Int = 1
+    var participationId: String = "1"
     val availabilities: MutableSet<Availability> = mutableSetOf()
 
-    fun  withAvailability(vararg availability: Availability) = apply {
+    fun withAvailability(vararg availability: Availability) = apply {
         availabilities.addAll(availability)
     }
 
     companion object {
-        fun aParticipation() : ParticipationBuilder = ParticipationBuilder()
+        fun aParticipation(): ParticipationBuilder = ParticipationBuilder()
     }
 
-    fun build(): Participation {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun build(): Participation = Participation(
+            participationId = this.participationId,
+            importance = this.importance,
+            availabilities = this.availabilities
+    )
 
 }
