@@ -22,7 +22,7 @@ internal class IntervalProjectionAlgorithmTest {
                 minDuration = Duration.standardHours(1),
                 between = Interval.parse("2017-10-02T14:15Z/2017-10-05T16:00Z"),
                 participation = setOf(
-                        participationWithAvailabilities("1", Availability(1, Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
+                        participationWithAvailabilities("1", Availability(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")))
     }
@@ -34,9 +34,9 @@ internal class IntervalProjectionAlgorithmTest {
                 minDuration = Duration.standardHours(1),
                 between = Interval.parse("2017-10-02T14:00Z/2017-10-06T16:00Z"),
                 participation = setOf(
-                        participationWithAvailabilities("1", Availability(1, Interval.parse("2017-10-02T14:00Z/2017-10-03T18:00Z"))),
-                        participationWithAvailabilities("2", Availability(1, Interval.parse("2017-10-03T15:00Z/2017-10-03T19:00Z"))),
-                        participationWithAvailabilities("3", Availability(1, Interval.parse("2017-10-03T14:15Z/2017-10-03T17:30Z")))
+                        participationWithAvailabilities("1", Availability(Interval.parse("2017-10-02T14:00Z/2017-10-03T18:00Z"))),
+                        participationWithAvailabilities("2", Availability(Interval.parse("2017-10-03T15:00Z/2017-10-03T19:00Z"))),
+                        participationWithAvailabilities("3", Availability(Interval.parse("2017-10-03T14:15Z/2017-10-03T17:30Z")))
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-03T15:00Z/2017-10-03T17:30Z")))
     }
@@ -50,10 +50,10 @@ internal class IntervalProjectionAlgorithmTest {
                 participation = setOf(
                         participationWithAvailabilities(
                                 "1",
-                                Availability(1, Interval.parse("2017-10-02T19:00Z/2017-10-02T23:00Z")),
-                                Availability(1, Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z"))
+                                Availability(Interval.parse("2017-10-02T19:00Z/2017-10-02T23:00Z")),
+                                Availability(Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z"))
                         ),
-                        participationWithAvailabilities("2", Availability(1, Interval.parse("2017-10-01T15:00Z/2017-10-30T19:00Z")))
+                        participationWithAvailabilities("2", Availability(Interval.parse("2017-10-01T15:00Z/2017-10-30T19:00Z")))
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T14:00Z/2017-10-03T15:00Z")))
     }
@@ -67,11 +67,11 @@ internal class IntervalProjectionAlgorithmTest {
                 participation = setOf(
                         participationWithAvailabilities(
                                 "1",
-                                Availability(1, Interval.parse("2017-10-01T14:00Z/2017-10-01T23:00Z"))
+                                Availability(Interval.parse("2017-10-01T14:00Z/2017-10-01T23:00Z"))
                         ),
                         participationWithAvailabilities(
                                 id = "2", importance = Int.MAX_VALUE,
-                                availability = Availability(1, Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z"))
+                                availability = Availability(Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z"))
                         )
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z")))

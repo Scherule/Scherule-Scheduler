@@ -43,7 +43,7 @@ internal class SchedulingProblemPojo(
     class Builder {
         var minParticipants = 1
             private set
-        var minDuration = Duration.ZERO
+        var minDuration = Duration.standardHours(1)
             private set
         var between = Interval.parse("2017-10-02T14:15Z/2017-10-05T16:00Z")
             private set

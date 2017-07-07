@@ -54,11 +54,17 @@ internal class SchedulingSteps @Inject constructor(
         participationBuilderStack.push(aParticipation())
     }
 
-    @Given("this participant declares availability '(.*)' with weight '(\\d+)'")
+    @Given("^this participant declares availability '([^\']*)'$")
+    fun givenThisParticipantDeclaresAvailability(
+            @Transform(IntervalConverter::class) interval: Interval
+    ) = participationBuilderStack.peek().withAvailability(Availability(interval))
+
+
+    @Given("^this participant declares availability '([^\']*)' with weight '(\\d+)'$")
     fun givenThisParticipantDeclaresAvailabilityWithWeight(
             @Transform(IntervalConverter::class) interval: Interval,
             weight: Int
-    ) = participationBuilderStack.peek().withAvailability(Availability(weight, interval))
+    ) = participationBuilderStack.peek().withAvailability(Availability(interval, weight))
 
 
     @When("the meeting was scheduled")
@@ -74,7 +80,7 @@ internal class SchedulingSteps @Inject constructor(
     fun thenTheMeetingScheduledIsInPeriod(
             @Transform(IntervalConverter::class) interval: Interval
     ) {
-        assertThat(interval).isEqualTo(scheduledMeeting!!.interval)
+        assertThat(scheduledMeeting!!.interval).isEqualTo(interval)
     }
 
 }

@@ -21,7 +21,7 @@ internal object ProblemUtils {
                 participationId = "1",
                 importance = 1,
                 availabilities = intervals.map {
-                    Availability(1, it)
+                    Availability(it)
                 }.toSet()
         )
     }
