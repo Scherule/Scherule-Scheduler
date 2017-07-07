@@ -1,5 +1,6 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
+import com.scherule.scheduling.algorithms.Participation
 import com.scherule.scheduling.algorithms.types.interval.projection.ProblemUtils.problemWithParticipations
 import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.Instant
@@ -53,6 +54,33 @@ internal class InstantFitnessEvaluatorTest {
                 )
         )))
         val instant = Instant.parse("2017-10-03T16:01Z")
+        assertThat(instantFitnessEvaluator.evaluate(instant))
+                .isEqualTo(InstantFitness(instant, Fitness.ZERO_FITNESS))
+    }
+
+    @Test
+    fun instantForWhichAtLeastOneRequiredParticipantIsUnavailableScoresZero() {
+        val instantFitnessEvaluator = InstantFitnessEvaluator(
+                problemWithParticipations(
+                        setOf(
+                                Participation(
+                                        participationId = "optional",
+                                        importance = 0,
+                                        availabilities = setOf(
+                                                Availability(Interval.parse("2017-10-03T09:00Z/2017-10-03T16:00Z"))
+                                        )
+                                ),
+                                Participation(
+                                        participationId = "required",
+                                        importance = 1,
+                                        availabilities = setOf(
+                                                Availability(Interval.parse("2017-10-04T09:00Z/2017-10-04T16:00Z"))
+                                        )
+                                )
+                        )
+                )
+        )
+        val instant = Instant.parse("2017-10-03T16:00Z")
         assertThat(instantFitnessEvaluator.evaluate(instant))
                 .isEqualTo(InstantFitness(instant, Fitness.ZERO_FITNESS))
     }

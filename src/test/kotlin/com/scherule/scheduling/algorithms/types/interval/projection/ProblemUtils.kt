@@ -10,8 +10,8 @@ internal object ProblemUtils {
     fun problemWithParticipations(participations: Set<Participation>): SchedulingProblemPojo {
         return SchedulingProblemPojo(
                 1,
-                Duration.standardHours(2),
-                Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"),
+                Duration.standardHours(1),
+                Interval.parse("2017-01-01T00:00Z/2017-12-31T23:59.59Z"),
                 participations
         )
     }

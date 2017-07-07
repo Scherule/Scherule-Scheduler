@@ -13,11 +13,11 @@ import cucumber.api.Transform
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.When
 import cucumber.runtime.java.guice.ScenarioScoped
+import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.Duration
 import org.joda.time.Interval
 import java.util.*
 import javax.inject.Inject
-import org.assertj.core.api.Assertions.*
 
 @ScenarioScoped
 internal class SchedulingSteps @Inject constructor(
@@ -49,9 +49,20 @@ internal class SchedulingSteps @Inject constructor(
     ) = problemBuilder.inBetween(interval)
 
 
-    @Given("there is a participant")
+    @Given("^there is a participant$")
     fun givenThereIsParticipant() {
         participationBuilderStack.push(aParticipation())
+    }
+
+    @Given("^there is a participant '([^']*)' with importance '(.*)'$")
+    fun givenThereIsParticipantWithImportance(
+            participantId: String,
+            importance: Int
+    ) {
+        participationBuilderStack.push(
+                aParticipation(participantId)
+                        .withImportance(importance)
+        )
     }
 
     @Given("^this participant declares availability '([^\']*)'$")
