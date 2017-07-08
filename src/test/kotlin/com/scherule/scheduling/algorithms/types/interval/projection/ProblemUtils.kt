@@ -7,21 +7,29 @@ import org.joda.time.Interval
 
 internal object ProblemUtils {
 
-    fun problemWithParticipations(participations: Set<Participation>): SchedulingProblemPojo {
+    fun meetingWithParticipants(
+            minParticipants: Int = 1,
+            durationInHours: Long = 1,
+            vararg participants: Participation
+    ): SchedulingProblemPojo {
         return SchedulingProblemPojo(
-                1,
-                Duration.standardHours(1),
-                Interval.parse("2017-01-01T00:00Z/2017-12-31T23:59.59Z"),
-                participations
+                minParticipants,
+                Duration.standardHours(durationInHours),
+                Interval.parse("1950-01-01T00:00Z/2050-12-31T23:59.59Z"),
+                participants.toSet()
         )
     }
 
-    fun participationWithIntervals(vararg intervals: Interval): Participation {
+    fun participantWithAvailability(
+            participationId: String = "optional",
+            importance: Int = 0,
+            vararg intervals: String
+    ): Participation {
         return Participation(
                 participationId = "1",
-                importance = 1,
+                importance = importance,
                 availabilities = intervals.map {
-                    Availability(it)
+                    Availability(Interval.parse(it))
                 }.toSet()
         )
     }

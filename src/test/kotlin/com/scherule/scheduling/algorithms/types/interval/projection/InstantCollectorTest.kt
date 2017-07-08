@@ -1,7 +1,7 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.types.interval.projection.ProblemUtils.participationWithIntervals
-import com.scherule.scheduling.algorithms.types.interval.projection.ProblemUtils.problemWithParticipations
+import com.scherule.scheduling.algorithms.types.interval.projection.ProblemUtils.participantWithAvailability
+import com.scherule.scheduling.algorithms.types.interval.projection.ProblemUtils.meetingWithParticipants
 import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.Instant
 import org.joda.time.Interval
@@ -11,11 +11,13 @@ internal class InstantCollectorTest {
 
     @Test
     fun mapsSingleIntervalToTwoInstants() {
-        assertThat(InstantCollector(problemWithParticipations(setOf(
-                participationWithIntervals(
-                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z")
+        assertThat(InstantCollector(
+                meetingWithParticipants(
+                        participants = participantWithAvailability(
+                                intervals = "2017-10-03T14:15Z/2017-10-03T16:00Z"
+                        )
                 )
-        ))).getInstants())
+        ).getInstants())
                 .containsExactly(
                         Instant.parse("2017-10-03T14:15Z"),
                         Instant.parse("2017-10-03T16:00Z")
@@ -24,32 +26,40 @@ internal class InstantCollectorTest {
 
     @Test
     fun mapsTwoNonOverlappingIntervalsToFourInstants() {
-        assertThat(InstantCollector(problemWithParticipations(setOf(
-                participationWithIntervals(
-                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"),
-                        Interval.parse("2017-10-03T15:45Z/2017-10-03T17:00Z")
+        assertThat(InstantCollector(
+                meetingWithParticipants(
+                        participants = participantWithAvailability(
+                                intervals = *arrayOf(
+                                        "2017-10-03T14:15Z/2017-10-03T16:00Z",
+                                        "2017-10-05T16:15Z/2017-10-06T17:00Z"
+                                )
+                        )
                 )
-        ))).getInstants())
+        ).getInstants())
                 .containsExactly(
                         Instant.parse("2017-10-03T14:15Z"),
-                        Instant.parse("2017-10-03T15:45Z"),
                         Instant.parse("2017-10-03T16:00Z"),
-                        Instant.parse("2017-10-03T17:00Z")
+                        Instant.parse("2017-10-05T16:15Z"),
+                        Instant.parse("2017-10-06T17:00Z")
                 )
     }
 
     @Test
     fun mapsTwoOverlappingIntervalsToThreeInstants() {
-        assertThat(InstantCollector(problemWithParticipations(setOf(
-                participationWithIntervals(
-                        Interval.parse("2017-10-03T14:15Z/2017-10-03T16:00Z"),
-                        Interval.parse("2017-10-03T14:15Z/2017-10-03T19:00Z")
+        assertThat(InstantCollector(
+                meetingWithParticipants(
+                        participants = participantWithAvailability(
+                                intervals = *arrayOf(
+                                        "2017-10-03T14:15Z/2017-10-03T16:00Z",
+                                        "2017-10-03T16:00Z/2017-10-06T17:00Z"
+                                )
+                        )
                 )
-        ))).getInstants())
+        ).getInstants())
                 .containsExactly(
                         Instant.parse("2017-10-03T14:15Z"),
                         Instant.parse("2017-10-03T16:00Z"),
-                        Instant.parse("2017-10-03T19:00Z")
+                        Instant.parse("2017-10-06T17:00Z")
                 )
     }
 

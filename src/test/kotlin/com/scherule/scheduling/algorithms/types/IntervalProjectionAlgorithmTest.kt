@@ -70,14 +70,18 @@ internal class IntervalProjectionAlgorithmTest {
                                 Availability(Interval.parse("2017-10-01T14:00Z/2017-10-01T23:00Z"))
                         ),
                         participationWithAvailabilities(
-                                id = "2", importance = Int.MAX_VALUE,
+                                id = "2",
+                                importance = Int.MAX_VALUE,
                                 availability = Availability(Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z"))
                         )
                 )
         ))).isEqualTo(SchedulingSolution(Interval.parse("2017-10-02T16:00Z/2017-10-02T18:00Z")))
     }
 
-    private fun participationWithAvailabilities(id: String, vararg availability: Availability, importance: Int = 1): Participation {
+    private fun participationWithAvailabilities(
+            id: String, vararg availability: Availability,
+            importance: Int = 1
+    ): Participation {
         return Participation(
                 participationId = "1",
                 importance = importance,

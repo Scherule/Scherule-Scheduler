@@ -25,7 +25,8 @@ class IntervalProjectionAlgorithm : SchedulingAlgorithm {
                 .map { instantEvaluator.evaluate(it) }
                 .collect(IntervalFitnessCollector())
                 .stream()
-                .max(intervalComparator).get()
+                .max(intervalComparator)
+                .get()
 
         return SchedulingSolution(intervalWithHighestFitness.interval)
     }

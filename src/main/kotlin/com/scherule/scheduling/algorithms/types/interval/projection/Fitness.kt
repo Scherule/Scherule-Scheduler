@@ -4,6 +4,7 @@ class Fitness(val value: Int) {
 
     companion object {
         val ZERO_FITNESS = Fitness(0)
+        val NULL_FITNESS = Fitness(-1)
     }
 
     fun isZero(): Boolean {
@@ -31,6 +32,7 @@ class Fitness(val value: Int) {
         return "Fitness(value=$value)"
     }
 
-    fun  isMoreThan(secondFitness: Fitness): Boolean = this.value > secondFitness.value
+    fun isMoreThan(secondFitness: Fitness): Boolean = this.value > secondFitness.value
+    fun isValid(): Boolean = this.value >= 0
 
 }
