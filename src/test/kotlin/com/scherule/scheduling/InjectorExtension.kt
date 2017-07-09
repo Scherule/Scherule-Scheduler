@@ -4,7 +4,7 @@ import com.google.inject.Guice
 import com.google.inject.Injector
 import com.google.inject.Module
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback
-import org.junit.jupiter.api.extension.TestExtensionContext
+import org.junit.jupiter.api.extension.ExtensionContext
 
 class InjectorExtension(
         modules: List<Module> = listOf(SchedulingApplicationContext())
@@ -12,7 +12,7 @@ class InjectorExtension(
 
     val injector: Injector = Guice.createInjector(modules)
 
-    override fun beforeTestExecution(context: TestExtensionContext?) {
+    override fun beforeTestExecution(context: ExtensionContext?) {
         injector.injectMembers(context?.testInstance)
     }
 
