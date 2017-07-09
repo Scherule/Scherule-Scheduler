@@ -1,1 +1,6 @@
 language: java
+install:
+  - ./gradlew -version
+
+script:
+  - ./gradlew build --scan

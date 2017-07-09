@@ -55,10 +55,11 @@ dependencies {
     testCompile 'info.cukes:cucumber-guice:1.2.5'
     testCompile 'info.cukes:cucumber-java:1.2.5'
     testCompile 'info.cukes:cucumber-junit:1.2.5'
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M5")
-    testRuntime("org.junit.platform:junit-platform-launcher:1.0.0-M5")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M5")
-    testRuntime("org.junit.vintage:junit-vintage-engine:4.12.0-M5")
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M5'
+    testRuntime 'org.junit.platform:junit-platform-console:1.0.0-M5'
+    testRuntime 'org.junit.platform:junit-platform-launcher:1.0.0-M5'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M5'
+    testRuntime 'org.junit.vintage:junit-vintage-engine:4.12.0-M5'
 }
 
 task annotationProcessing(type: JavaCompile, group: 'build') {
@@ -92,7 +93,7 @@ compileJava {
 }
 
 junitPlatform {
-    platformVersion '1.0'
+    platformVersion '1.0.0-M5'
     logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
