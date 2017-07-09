@@ -7,10 +7,6 @@ class Fitness(val value: Int) {
         val NULL_FITNESS = Fitness(-1)
     }
 
-    fun isZero(): Boolean {
-        return ZERO_FITNESS == this
-    }
-
     fun thisOrIfLower(fitness: Fitness): Fitness = if (fitness.value < this.value) fitness else this
 
     override fun equals(other: Any?): Boolean {
