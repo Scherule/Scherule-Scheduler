@@ -1,9 +1,9 @@
 package com.scherule.scheduling
 
+import org.assertj.core.api.Assertions.assertThat
 import org.joda.time.Duration
 import org.joda.time.Interval
-import org.junit.jupiter.api.*
-import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 internal class SchedulingJobTest {
 
@@ -22,11 +22,6 @@ internal class SchedulingJobTest {
     @Test
     fun betweenCanBeRead() {
         assertThat(SchedulingJob(jobContent).getBetween()).isEqualTo(Interval(1507040100000, 1507046400000))
-    }
-
-    @Test
-    fun participantsCanBeGet() {
-        assertThat(SchedulingJob(jobContent).getParticipants())
     }
 
 }

@@ -1,6 +1,6 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.Participation
+import com.scherule.scheduling.algorithms.Participant
 import com.scherule.scheduling.helpers.SchedulingProblemPojo
 import org.joda.time.Duration
 import org.joda.time.Interval
@@ -10,7 +10,7 @@ internal object ProblemUtils {
     fun meetingWithParticipants(
             minParticipants: Int = 1,
             durationInHours: Long = 1,
-            vararg participants: Participation
+            vararg participants: Participant
     ): SchedulingProblemPojo {
         return SchedulingProblemPojo(
                 minParticipants,
@@ -24,9 +24,9 @@ internal object ProblemUtils {
             participationId: String = "optional",
             importance: Int = 0,
             vararg intervals: String
-    ): Participation {
-        return Participation(
-                participationId = "1",
+    ): Participant {
+        return Participant(
+                participantId = "1",
                 importance = importance,
                 availabilities = intervals.map {
                     Availability(Interval.parse(it))

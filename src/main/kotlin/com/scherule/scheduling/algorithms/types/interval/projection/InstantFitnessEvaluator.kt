@@ -1,6 +1,6 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import com.scherule.scheduling.algorithms.Participation
+import com.scherule.scheduling.algorithms.Participant
 import com.scherule.scheduling.algorithms.SchedulingProblem
 import com.scherule.scheduling.algorithms.types.interval.projection.Fitness.Companion.NULL_FITNESS
 import com.scherule.scheduling.algorithms.types.interval.projection.Fitness.Companion.ZERO_FITNESS
@@ -10,7 +10,7 @@ import kotlin.streams.toList
 class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
 
     fun evaluate(instant: Instant): InstantFitness {
-        val evaluations = problem.getParticipations().stream()
+        val evaluations = problem.getParticipants().stream()
                 .map { evaluateForParticipant(it, instant) }
                 .toList()
 
@@ -25,8 +25,8 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
         return InstantFitness(instant, totalFitness)
     }
 
-    private fun evaluateForParticipant(participation: Participation, instant: Instant): Fitness {
-        val matchingIntervalOptional = participation.availabilities.stream().filter {
+    private fun evaluateForParticipant(participant: Participant, instant: Instant): Fitness {
+        val matchingIntervalOptional = participant.availabilities.stream().filter {
             it.interval.end.isEqual(instant) || it.interval.contains(instant)
         }.findFirst()
         if (matchingIntervalOptional.isPresent) {
@@ -34,7 +34,7 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
             if (matchingInterval.interval.overlaps(problem.getBetween())) {
                 val validDuration = matchingInterval.trimmedTo(problem.getBetween()).getDuration()
                 return Fitness(
-                        maxOf(participation.importance, 1)
+                        maxOf(participant.importance, 1)
                                 * matchingInterval.weight
                                 * validDuration.standardHours.toInt()
                 )
@@ -42,7 +42,7 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
         }
 
         when {
-            participation.importance == 0 -> return ZERO_FITNESS
+            participant.importance == 0 -> return ZERO_FITNESS
             else -> return Fitness.NULL_FITNESS
         }
     }

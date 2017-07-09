@@ -1,6 +1,6 @@
 package com.scherule.scheduling.builders
 
-import com.scherule.scheduling.algorithms.Participation
+import com.scherule.scheduling.algorithms.Participant
 import com.scherule.scheduling.algorithms.types.interval.projection.Availability
 
 
@@ -24,8 +24,8 @@ internal class ParticipationBuilder(
                 ParticipationBuilder = ParticipationBuilder(participationId)
     }
 
-    fun build(): Participation = Participation(
-            participationId = this.participationId,
+    fun build(): Participant = Participant(
+            participantId = this.participationId,
             importance = this.importance,
             availabilities = this.availabilities
     )

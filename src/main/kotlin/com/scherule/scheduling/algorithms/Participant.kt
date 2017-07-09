@@ -2,8 +2,8 @@ package com.scherule.scheduling.algorithms
 
 import com.scherule.scheduling.algorithms.types.interval.projection.Availability
 
-class Participation(
-        val participationId: String,
+class Participant(
+        val participantId: String,
         val importance: Int,
         val availabilities: Set<Availability>
 ) {
@@ -12,9 +12,9 @@ class Participation(
         if (this === other) return true
         if (other?.javaClass != javaClass) return false
 
-        other as Participation
+        other as Participant
 
-        if (participationId != other.participationId) return false
+        if (participantId != other.participantId) return false
         if (importance != other.importance) return false
         if (availabilities != other.availabilities) return false
 
@@ -22,7 +22,7 @@ class Participation(
     }
 
     override fun hashCode(): Int {
-        var result = participationId.hashCode()
+        var result = participantId.hashCode()
         result = 31 * result + importance
         result = 31 * result + availabilities.hashCode()
         return result

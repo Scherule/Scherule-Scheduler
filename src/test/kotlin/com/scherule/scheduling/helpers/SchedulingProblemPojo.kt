@@ -1,8 +1,7 @@
 package com.scherule.scheduling.helpers
 
-import com.scherule.scheduling.algorithms.Participation
+import com.scherule.scheduling.algorithms.Participant
 import com.scherule.scheduling.algorithms.SchedulingProblem
-import org.joda.time.DateTime
 import org.joda.time.Duration
 import org.joda.time.Interval
 
@@ -10,11 +9,11 @@ internal class SchedulingProblemPojo(
         private val minParticipants: Int,
         private val minDuration: Duration,
         private val between: Interval,
-        private val participation: Set<Participation>
+        private val participant: Set<Participant>
 ) : SchedulingProblem {
 
-    override fun getParticipations(): Set<Participation> {
-        return participation
+    override fun getParticipants(): Set<Participant> {
+        return participant
     }
 
     override fun getMinParticipants(): Int {
@@ -37,7 +36,7 @@ internal class SchedulingProblemPojo(
             minParticipants = builder.minParticipants,
             minDuration = builder.minDuration,
             between = builder.between,
-            participation = builder.participation
+            participant = builder.participant
     )
 
     class Builder {
@@ -47,7 +46,7 @@ internal class SchedulingProblemPojo(
             private set
         var between = Interval.parse("2017-10-02T14:15Z/2017-10-05T16:00Z")
             private set
-        var participation: MutableSet<Participation> = mutableSetOf()
+        var participant: MutableSet<Participant> = mutableSetOf()
             private set
 
         fun withMinParticipants(minParticipants: Int) = apply { this.minParticipants = minParticipants }
@@ -56,7 +55,7 @@ internal class SchedulingProblemPojo(
 
         fun inBetween(between: Interval) = apply { this.between = between }
 
-        fun withParticipation(vararg participation: Participation) = apply { this.participation.addAll(participation) }
+        fun withParticipation(vararg participant: Participant) = apply { this.participant.addAll(participant) }
 
         fun build() = SchedulingProblemPojo(this)
 
