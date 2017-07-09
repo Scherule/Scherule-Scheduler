@@ -47,4 +47,6 @@ class IntervalFitness(val interval: Interval, val fitness: Fitness) {
         return this.fitness.isMoreThan(fitness)
     }
 
+    fun isValid(): Boolean = this.fitness.isValid()
+
 }

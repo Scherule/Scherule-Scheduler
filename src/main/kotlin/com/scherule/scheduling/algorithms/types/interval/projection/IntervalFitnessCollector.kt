@@ -12,11 +12,11 @@ class IntervalFitnessCollector : Collector<InstantFitness, Stack<IntervalFitness
     override fun accumulator(): BiConsumer<Stack<IntervalFitness>, InstantFitness> {
         return BiConsumer<Stack<IntervalFitness>, InstantFitness> {
             accumulator, instantFitness ->
-            if (instantFitness.isZero() || accumulator.isEmpty()) {
+            if (instantFitness.isNegative() || accumulator.isEmpty()) {
                 accumulator.push(IntervalFitness(instantFitness))
             } else {
                 val existingInterval = accumulator.pop()
-                if (existingInterval.fitness.isZero()) {
+                if (!existingInterval.isValid()) {
                     accumulator.push(IntervalFitness(instantFitness))
                 } else {
                     accumulator.push(existingInterval.expandTo(instantFitness))

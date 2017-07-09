@@ -3,7 +3,7 @@ package com.scherule.scheduling.algorithms.types.interval.projection
 import org.joda.time.Instant
 
 class InstantFitness(val instant: Instant, val fitness: Fitness) {
-    fun isZero(): Boolean = fitness.isZero()
+    fun isNegative(): Boolean = !fitness.isPositive()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
