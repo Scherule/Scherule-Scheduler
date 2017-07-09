@@ -15,8 +15,9 @@ plugins {
 
 repositories {
     mavenLocal()
-    jcenter()
-    maven { url "http://dl.bintray.com/cy6ergn0m/maven" }
+    maven {
+        url  "http://dl.bintray.com/kboom/scherule"
+    }
 }
 
 apply plugin: 'kotlin'
