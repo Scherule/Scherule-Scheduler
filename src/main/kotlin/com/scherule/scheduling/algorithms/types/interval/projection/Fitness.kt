@@ -34,5 +34,6 @@ class Fitness(val value: Int) {
 
     fun isMoreThan(secondFitness: Fitness): Boolean = this.value > secondFitness.value
     fun isValid(): Boolean = this.value >= 0
+    fun isPositive(): Boolean = this.value > 0;
 
 }

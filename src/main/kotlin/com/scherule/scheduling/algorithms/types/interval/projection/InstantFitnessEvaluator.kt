@@ -2,24 +2,27 @@ package com.scherule.scheduling.algorithms.types.interval.projection
 
 import com.scherule.scheduling.algorithms.Participation
 import com.scherule.scheduling.algorithms.SchedulingProblem
+import com.scherule.scheduling.algorithms.types.interval.projection.Fitness.Companion.NULL_FITNESS
 import com.scherule.scheduling.algorithms.types.interval.projection.Fitness.Companion.ZERO_FITNESS
 import org.joda.time.Instant
+import kotlin.streams.toList
 
 class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
 
     fun evaluate(instant: Instant): InstantFitness {
-        val fitness = problem.getParticipations().stream()
+        val evaluations = problem.getParticipations().stream()
                 .map { evaluateForParticipant(it, instant) }
-                .reduce(Fitness.ZERO_FITNESS, {
-                    firstFitness, secondFitness ->
-                    when {
-                        firstFitness.isValid() && secondFitness.isValid()
-                        -> Fitness(firstFitness.value + secondFitness.value)
-                        else -> Fitness.NULL_FITNESS
-                    }
-                })
+                .toList()
 
-        return InstantFitness(instant, fitness)
+        if (evaluations.filterNot { it.isValid() }.isNotEmpty()
+                || evaluations.filter { it.isPositive() }.size < problem.getMinParticipants()) {
+            return InstantFitness(instant, NULL_FITNESS)
+        }
+
+        val totalFitness = evaluations.reduce { firstFitness, secondFitness ->
+            Fitness(firstFitness.value + secondFitness.value)
+        }
+        return InstantFitness(instant, totalFitness)
     }
 
     private fun evaluateForParticipant(participation: Participation, instant: Instant): Fitness {
@@ -31,7 +34,7 @@ class InstantFitnessEvaluator(private val problem: SchedulingProblem) {
             if (matchingInterval.interval.overlaps(problem.getBetween())) {
                 val validDuration = matchingInterval.trimmedTo(problem.getBetween()).getDuration()
                 return Fitness(
-                        maxOf(participation.importance,1)
+                        maxOf(participation.importance, 1)
                                 * matchingInterval.weight
                                 * validDuration.standardHours.toInt()
                 )
