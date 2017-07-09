@@ -1,26 +1,34 @@
 package com.scherule.scheduling.algorithms.types.interval.projection
 
-import org.junit.jupiter.api.Test
 import org.assertj.core.api.Assertions.assertThat
+import org.joda.time.DateTimeZone
 import org.joda.time.Instant
 import org.joda.time.Interval
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Test
 import java.util.stream.Stream
 
-internal class IntervalFitnessCollectorTest {
+class IntervalFitnessCollectorTest {
 
     companion object {
         val POSITIVE_FITNESS = 1
+
+        @BeforeAll
+        @JvmStatic
+        fun beforeClass() {
+            DateTimeZone.setDefault(DateTimeZone.UTC)
+        }
     }
 
     @Test
     fun collectsSingleIntervalOutOfTwoNonNullInstants() {
         assertThat(
                 Stream.of(
-                        instantFitness("2017-10-03T14:15Z", POSITIVE_FITNESS),
-                        instantFitness("2017-10-03T14:15Z", POSITIVE_FITNESS)
+                        instantFitness("2017-10-03T14:00Z", POSITIVE_FITNESS),
+                        instantFitness("2017-10-03T16:15Z", POSITIVE_FITNESS)
                 ).collect(IntervalFitnessCollector())
         ).containsExactly(
-                intervalFitness("2017-10-03T14:15Z/2017-10-03T14:15Z", POSITIVE_FITNESS)
+                intervalFitness("2017-10-03T14:00Z/2017-10-03T16:15Z", POSITIVE_FITNESS)
         )
     }
 
