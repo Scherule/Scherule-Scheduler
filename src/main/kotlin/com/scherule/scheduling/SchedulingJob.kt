@@ -8,6 +8,7 @@ import org.joda.time.Duration
 import org.joda.time.Interval
 
 class SchedulingJob(jsonValue: String) : SchedulingProblem {
+
     override fun getParticipants(): Set<Participant> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
