@@ -15,9 +15,9 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven {
-        url  "http://dl.bintray.com/kboom/scherule"
-    }
+    maven { url "http://dl.bintray.com/kboom/scherule" }
+    maven { url "http://dl.bintray.com/cy6ergn0m/maven" }
+    mavenCentral()
 }
 
 apply plugin: 'kotlin'
@@ -34,7 +34,7 @@ def watchForChange = 'src/**/*'
 def doOnChange = './gradlew classes'
 
 dependencies {
-    compile "com.scherule:Scherule-commons:$version"
+    compile "com.scherule:scherule-commons:1.1"
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -65,7 +65,7 @@ dependencies {
 
 task annotationProcessing(type: JavaCompile, group: 'build') {
     dependsOn tasks.getByPath('compileKotlin')
-    source = [ sourceSets.main.java, sourceSets.main.kotlin ]
+    source = [sourceSets.main.java, sourceSets.main.kotlin]
     classpath = configurations.compile + configurations.compileOnly + files(compileKotlin.destinationDir)
     destinationDir = project.file('src/main/generated')
     options.compilerArgs = [
