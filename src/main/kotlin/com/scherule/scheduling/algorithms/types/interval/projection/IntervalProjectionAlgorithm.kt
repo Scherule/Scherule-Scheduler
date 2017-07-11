@@ -4,7 +4,7 @@ import com.scherule.scheduling.algorithms.SchedulingAlgorithm
 import com.scherule.scheduling.algorithms.SchedulingProblem
 import com.scherule.scheduling.algorithms.SchedulingSolution
 import org.joda.time.Duration
-import java.util.Comparator
+import java.util.*
 import java.util.stream.Stream
 
 class IntervalProjectionAlgorithm : SchedulingAlgorithm {

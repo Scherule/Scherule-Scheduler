@@ -6,13 +6,14 @@ import com.google.inject.Injector;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.scherule.scheduling.algorithms.AlgorithmsModule;
 
 import static com.google.inject.name.Names.named;
 
 
 class SchedulingApplicationContext extends AbstractModule {
 
-    private final Injector injector = Guice.createInjector(this);
+    private final Injector injector = Guice.createInjector(this, new AlgorithmsModule());
 
     Injector getInjector() {
         return injector;

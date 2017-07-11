@@ -24,6 +24,11 @@ class SchedulingJobTest {
     }
 
     @Test
+    fun algorithmTypeCanBeRead() {
+        assertThat(SchedulingJob(jobContent).getAlgorithmType()).isEqualTo("intervalProjection")
+    }
+
+    @Test
     fun minParticipantsCanBeRead() {
         assertThat(SchedulingJob(jobContent).getMinParticipants()).isEqualTo(3)
     }

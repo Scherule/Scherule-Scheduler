@@ -50,4 +50,6 @@ class SchedulingJob(jsonValue: String) : SchedulingProblem {
         }.toSet()
     }
 
+    fun getAlgorithmType(): String = context.read("$.algorithm.type")
+
 }
