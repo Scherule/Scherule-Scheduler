@@ -9,4 +9,26 @@ class Availability(val interval: Interval, val weight: Int = 1) {
 
     fun getDuration(): Duration = interval.toDuration()
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as Availability
+
+        if (!interval.isEqual(other.interval)) return false
+        if (weight != other.weight) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = interval.hashCode()
+        result = 31 * result + weight
+        return result
+    }
+
+    override fun toString(): String {
+        return "Availability(interval=$interval, weight=$weight)"
+    }
+
 }

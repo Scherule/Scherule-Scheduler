@@ -28,4 +28,9 @@ class Participant(
         return result
     }
 
+    override fun toString(): String {
+        return "Participant(participantId='$participantId', importance=$importance, availabilities=$availabilities)"
+    }
+
+
 }
