@@ -47,6 +47,7 @@ dependencies {
     compile 'org.jetbrains.kotlinx:vertx3-lang-kotlin:0.0.+'
     compile group: 'com.rabbitmq', name: 'amqp-client', version: '4.1.1'
     compile 'com.google.inject:guice:4.1.0'
+    compile group: 'com.google.inject.extensions', name: 'guice-multibindings', version: '4.1.0'
     compile 'com.jayway.jsonpath:json-path:2.3.0'
     compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
     compileOnly "io.vertx:vertx-codegen:$vertxVersion"

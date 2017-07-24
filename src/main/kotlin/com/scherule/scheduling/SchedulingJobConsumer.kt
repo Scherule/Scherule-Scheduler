@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class SchedulingJobConsumer
 @Inject constructor(
         @Named("scheduling.channel") channel: Channel,
-        @Named("scheduling.schedulers") val schedulers: Map<String, SchedulingAlgorithm>
+        val schedulers: Map<String, SchedulingAlgorithm>
 ) : DefaultConsumer(channel) {
 
     companion object {
