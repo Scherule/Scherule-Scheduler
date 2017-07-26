@@ -1,7 +1,8 @@
-package com.scherule.scheduling
+package com.scherule.scheduling.modules
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
+import com.scherule.scheduling.SchedulersLibrary
 import com.scherule.scheduling.algorithms.types.interval.projection.IntervalProjectionAlgorithm
 
 class SchedulersModule : AbstractModule() {
