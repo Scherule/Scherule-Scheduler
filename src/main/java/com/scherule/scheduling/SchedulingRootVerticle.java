@@ -2,7 +2,6 @@ package com.scherule.scheduling;
 
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import com.google.inject.name.Names;
 import com.rabbitmq.client.Channel;
 import com.scherule.commons.MicroServiceVerticle;
 import org.slf4j.Logger;
