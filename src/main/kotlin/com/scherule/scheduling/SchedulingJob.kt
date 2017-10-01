@@ -1,13 +1,10 @@
 package com.scherule.scheduling
 
-import com.jayway.jsonpath.DocumentContext
-import com.jayway.jsonpath.JsonPath
 import com.scherule.scheduling.algorithms.Participant
 import com.scherule.scheduling.algorithms.SchedulingProblem
 import com.scherule.scheduling.algorithms.types.interval.projection.Availability
-import net.minidev.json.JSONArray
-import org.joda.time.Duration
-import org.joda.time.Interval
+import sun.jvm.hotspot.utilities.Interval
+import java.time.Duration
 
 class SchedulingJob(jsonValue: String) : SchedulingProblem {
 
